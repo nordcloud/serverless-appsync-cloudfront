@@ -268,8 +268,16 @@ class ServerlessAppSyncCloudFrontPlugin {
     this.prepareWaf(distributionConfig);
     this.prepareCompress(distributionConfig);
     this.prepareMinimumProtocolVersion(distributionConfig);
+    this.prepareResponseHeadersPolicyId(distributionConfig);
   }
+  prepareResponseHeadersPolicyId(distributionConfig) {
+    const responseHeadersPolicyId = this.getConfig("responseHeadersPolicyId")
 
+    if (responseHeadersPolicyId !== null) {
+      distributionConfig.DefaultCacheBehavior.ResponseHeadersPolicyId=responseHeadersPolicyId
+    }
+
+  }
   prepareLogging(distributionConfig) {
     const loggingBucket = this.getConfig("logging.bucket");
 
